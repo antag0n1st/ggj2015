@@ -10,8 +10,7 @@
     GameScreen.prototype.initialize = function () {
 
         this.screen_initialize();
-        
-
+       
     };
 
     GameScreen.prototype.on_note = function (note, sender, data) {
