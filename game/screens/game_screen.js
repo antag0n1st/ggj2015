@@ -10,6 +10,7 @@
     GameScreen.prototype.initialize = function () {
 
         this.screen_initialize();
+        
 
     };
 
