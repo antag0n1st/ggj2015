@@ -1,5 +1,5 @@
 (function(window) {
-
+    //main class
     function Game() {
         this.initialize();
     }
