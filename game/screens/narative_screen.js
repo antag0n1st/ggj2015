@@ -27,7 +27,7 @@ NarativeScreen.prototype.initialize = function() {
         var mt3 = new V();
         mt3.setLength(100);
         mt3.setAngle(Math.degrees_to_radians(10));
-        that.add_rotating_sprite("witch_ball1", new V(660, 400), mt3, 0.6, 0, 0.5, new V(0.5, 0.5), 5000);
+        that.add_rotating_sprite("witch_ball1", new V(660, 430), mt3, 0.6, 0, 0.5, new V(0.5, 0.5), 5000);
     }, 1000);
 
 
@@ -35,7 +35,7 @@ NarativeScreen.prototype.initialize = function() {
         var mt4 = new V();
         mt4.setLength(100);
         mt4.setAngle(Math.degrees_to_radians(10));
-        that.add_rotating_sprite("witch_ball2", new V(660, 400), mt4, 0.6, 0, -0.5, new V(0.5, 0.5), 5000);
+        that.add_rotating_sprite("witch_ball2", new V(660, 430), mt4, 0.6, 0, -0.5, new V(0.5, 0.5), 5000);
     }, 1000);
 
 
@@ -43,7 +43,7 @@ NarativeScreen.prototype.initialize = function() {
         var mt5 = new V();
         mt5.setLength(100);
         mt5.setAngle(Math.degrees_to_radians(10));
-        that.add_rotating_sprite("witch_ball3", new V(660, 400), mt5, 0.6, 0, null, new V(0.5, 0.5), 5000);
+        that.add_rotating_sprite("witch_ball3", new V(660, 430), mt5, 0.6, 0, null, new V(0.5, 0.5), 5000);
     }, 1000);
   
     
@@ -83,6 +83,44 @@ NarativeScreen.prototype.initialize = function() {
         mt9.setAngle(Math.degrees_to_radians(190));
         that.add_sprite("witch_intro_hands_luta",new V(780,350) , mt9, 0.6, 0, 3500);
     },6700);
+    
+    
+    setTimeout(function() {
+        var mt33 = new V();
+        mt33.setLength(70);
+        mt33.setAngle(Math.degrees_to_radians(190));
+        that.add_rotating_sprite("witch_ball1", new V(860, 430), mt33, 0.6, 0, 0.5, new V(0.5, 0.5), 2500);
+    }, 6700);
+
+
+    setTimeout(function() {
+        var mt44 = new V();
+        mt44.setLength(70);
+        mt44.setAngle(Math.degrees_to_radians(190));
+        that.add_rotating_sprite("witch_ball2", new V(860, 430), mt44, 0.6, 0, -0.5, new V(0.5, 0.5), 2500);
+    }, 6700);
+
+
+    setTimeout(function() {
+        var mt55 = new V();
+        mt55.setLength(70);
+        mt55.setAngle(Math.degrees_to_radians(190));
+        that.add_rotating_sprite("ggj15_witch_BALL3_broken", new V(860, 430), mt55, 0.6, 0, null, new V(0.5, 0.5), 2500);
+    }, 6700);
+    
+    
+   setTimeout(function(){
+        var image = new Sprite("ggj15_witch_intro_ball_brokenTotaly");
+        image.set_scale(0.6);
+
+        image.set_alpha(1);
+
+        image.set_position(750, 360);
+        that.add_child(image);
+        
+        var t3 = new TweenMoveTo(image, new V(700, 350), null, 1500, function(){that.remove_child(image);});
+        t3.run();
+    },8400);
 
 
     //scene 3
@@ -94,7 +132,7 @@ NarativeScreen.prototype.initialize = function() {
     },10000);
     
     
-    setTimeout(function(){
+     setTimeout(function(){
         var label1 = new Label();
         label1.set({text: "What do we do now?"});
         label1.set({text_color: "#FFFFFF"});
@@ -103,6 +141,7 @@ NarativeScreen.prototype.initialize = function() {
 
         label1.set_position(240, 180);
         that.add_child(label1);
+        
     },13000);
     
     
@@ -246,10 +285,10 @@ NarativeScreen.prototype.add_rotating_sprite = function(name, position, move_to,
     var t3 = new TweenMoveTo(image, mt, null, duration);
     t3.run();
 
-
+    var that=this;
     setTimeout(function() {
 
-        var t17 = new TweenAlpha(image, 0, null, 1000);
+        var t17 = new TweenAlpha(image, 0, null, 1000, function(){that.remove_child(image);});
         t17.run();
 
     }, duration - 1000);
