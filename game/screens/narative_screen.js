@@ -10,58 +10,106 @@ NarativeScreen.prototype.initialize = function() {
     this.screen_initialize();
 
 
-    var mt = new V();
-    mt.setLength(0);
-    mt.setAngle(Math.degrees_to_radians(0));
-    this.add_label("Fortelling the future",new V(500,50) , mt, 6000);
-    
+    this.add_label("Fortelling the future", new V(400, 50), new V(), 6000);
+
     var that = this;
+
+
+    setTimeout(function() {
+        var mt1 = new V();
+        mt1.setLength(100);
+        mt1.setAngle(Math.degrees_to_radians(10));
+        that.add_sprite("witch_intro", new V(410, 130), mt1, 0.6, 0, 5000);
+    }, 1000);
+
+
+//    setTimeout(function() {
+//        var mt3 = new V();
+//        mt3.setLength(100);
+//        mt3.setAngle(Math.degrees_to_radians(10));
+//        that.add_rotating_sprite("witch_ball1", new V(660, 400), mt3, 0.6, 0, 0.5, new V(0.5, 0.5), 5000);
+//    }, 1000);
+//
+//
+//    setTimeout(function() {
+//        var mt4 = new V();
+//        mt4.setLength(100);
+//        mt4.setAngle(Math.degrees_to_radians(10));
+//        that.add_rotating_sprite("witch_ball2", new V(660, 400), mt4, 0.6, 0, -0.5, new V(0.5, 0.5), 5000);
+//    }, 1000);
+//
+//
+//    setTimeout(function() {
+//        var mt5 = new V();
+//        mt5.setLength(100);
+//        mt5.setAngle(Math.degrees_to_radians(10));
+//        that.add_rotating_sprite("witch_ball3", new V(660, 400), mt5, 0.6, 0, null, new V(0.5, 0.5), 5000);
+//    }, 1000);
+//  
+//    
+//    setTimeout(function() {
+//        var mt2 = new V();
+//        mt2.setLength(100);
+//        mt2.setAngle(Math.degrees_to_radians(10));
+//        that.add_sprite("witch_intro_hands", new V(567, 350), mt2, 0.6, 0, 5000);
+//    }, 1000);
+//
+//    
+//    setTimeout(function(){
+//        var mt6 = new V();
+//        mt6.setLength(0);
+//        mt6.setAngle(Math.degrees_to_radians(90));
+//        that.add_label("But when the magick ball",new V(280,-10) , mt6, 4000);
+//    },8000);
+//    
+//    setTimeout(function(){
+//           var mt7 = new V();
+////        mt7.setLength(20);
+////        mt7.setAngle(Math.degrees_to_radians(-90));
+//        that.add_label("is gone",new V(600,60) , mt7, 3500);
+//    },8500);
+//    
+//    
+//    setTimeout(function(){
+//        var mt8 = new V();
+//        mt8.setLength(100);
+//        mt8.setAngle(Math.degrees_to_radians(190));
+//        that.add_sprite("witch_intro_luta",new V(610,150) , mt8, 0.6, 0, 0, null, 4700);
+//    },8700);
+//    
+//    setTimeout(function(){
+//        var mt9 = new V();
+//        mt9.setLength(100);
+//        mt9.setAngle(Math.degrees_to_radians(190));
+//        that.add_sprite("witch_intro_hands_luta",new V(780,350) , mt9, 0.6, 0, 0, null, 4700);
+//    },8700);
+
+
     
-    var mt1 = new V();
-    mt1.setLength(100);
-    mt1.setAngle(Math.degrees_to_radians(10));
-    setTimeout(function(){
-        that.add_image("witch_intro",new V(350,130) , mt1, 0.6, 2, 0, null, 5000);
-    },1000);
-    
-    
-    setTimeout(function(){
-        that.add_image("witch_ball1",new V(550,340) , mt1, 0.6, 1, 0.5, new V(0.5, 0.5), 5000);
-    },1000);
-    
-    
-    setTimeout(function(){
-        that.add_image("witch_ball2",new V(550,340) , mt1, 0.6, 1, -0.5, new V(0.5, 0.5), 5000);
-    },1000);
-    
-    setTimeout(function(){
-        that.add_image("witch_ball3",new V(550,340) , mt1, 0.6, 1, null, new V(0.5, 0.5), 5000);
-    },1000);
-    
-    var mt2 = new V();
-    mt2.setLength(0);
-    mt2.setAngle(Math.degrees_to_radians(90));
-    setTimeout(function(){
-        that.add_label("But when the magic ball",new V(500,150) , mt2, 5000);
-    },7000);
-    
-    
-    var mt3 = new V();
-    mt3.setLength(30);
-    mt3.setAngle(Math.degrees_to_radians(-90));
-    setTimeout(function(){
-        that.add_label("is gone",new V(650,250) , mt3, 4500);
-    },7500);
-    
-    
-    
-    
+//    setTimeout(function(){
+//        var mt10 = new V();
+//        mt10.setLength(0);
+//        mt10.setAngle(Math.degrees_to_radians(90));
+//        that.add_label("Ist imposible to tell the future",new V(120,30) , mt10, 4000);
+//    },10000);
+//    
+//    
+//    setTimeout(function(){
+//        var label1 = new Label();
+//        label1.set({text: "What do we do now?"});
+//        label1.set({text_color: "#FFFFFF"});
+//        label1.set({text_size: 140});
+//        label1.set({text_font_name: "AuldMagick"});
+//
+//        label1.set_position(240, 180);
+//        that.add_child(label1);
+//    },13000);
 //    
 //    
 //    setTimeout(function(){
 //        game.navigator.add(new GameScreen(), Screen.ANIMATION_TYPE_FADEIN);
-//    },11000);
-    
+//    },16000);
+
 };
 
 NarativeScreen.prototype.show = function() {
@@ -105,79 +153,107 @@ NarativeScreen.prototype.clear = function(context) {
 };
 
 NarativeScreen.prototype.add_label = function(text, position, move_to, duration) {
-    
+
     var label1 = new Label();
     label1.set({text: text});
     label1.set({text_color: "#FFFFFF"});
-    label1.set({text_size: 50});
+    label1.set({text_size: 140});
+    label1.set({text_font_name: "AuldMagick"});
     label1.set_alpha(0);
-    
-    log(label1.text+" "+duration);
+
     duration = duration ? duration : 2000;
-  
-    label1.set_position(position.x,position.y);
+
+    label1.set_position(position.x, position.y);
     this.add_child(label1);
 
     var mt = position.clone().add(move_to);
-    
+
     var t = new TweenAlpha(label1, 1, null, 3000);
     t.run();
-    
+
     var t3 = new TweenMoveTo(label1, mt, null, duration);
     t3.run();
-     
+
 
     setTimeout(function() {
-        
+
         var t = new TweenAlpha(label1, 0, null, 1000);
         t.run();
-        
-    }, duration - 1000);
 
-    
+    }, duration - 1000);
 
 };
 
+NarativeScreen.prototype.add_sprite = function(name, position, move_to, scale, z_index, duration) {
 
-NarativeScreen.prototype.add_image = function(name, position, move_to, scale, z_index, rotate, anchor, duration) {
-    
     var image = new Sprite(name);
     image.set_scale(scale);
 
     image.set_alpha(0);
-    if(anchor)
-        image.set_anchor(anchor.x, anchor.y);
-    
+
     duration = duration ? duration : 2000;
-    image.z_index=z_index;
-  
-    image.set_position(position.x,position.y);
+    image.z_index = z_index;
+
+    image.set_position(position.x, position.y);
     this.add_child(image);
 
     var mt = position.clone().add(move_to);
-    
-    log(image.image_name);
-    var t = new TweenAlpha(image, 1, null, 4000);
-    t.run();
-    
-    if(rotate!=0)
+
+    var t16 = new TweenAlpha(image, 1, null, duration);
+    t16.run();
+
+    var t3 = new TweenMoveTo(image, mt, null, duration);
+    t3.run();
+
+
+    setTimeout(function() {
+
+        var t17 = new TweenAlpha(image, 0, null, 1000);
+        t17.run();
+
+    }, duration - 1000);
+
+
+};
+
+
+NarativeScreen.prototype.add_rotating_sprite = function(name, position, move_to, scale, z_index, rotate, anchor, duration) {
+
+    var image = new Sprite(name);
+    image.set_scale(scale);
+
+    image.set_alpha(0);
+    if (anchor)
+        image.set_anchor(anchor.x, anchor.y);
+
+    duration = duration ? duration : 2000;
+    image.z_index = z_index;
+
+    image.set_position(position.x, position.y);
+    this.add_child(image);
+
+    var mt = position.clone().add(move_to);
+
+    var t16 = new TweenAlpha(image, 0.5, null, 4000);
+    t16.run();
+
+    if (rotate != 0)
     {
         var t2 = new TweenRotate(image, rotate, null, duration);
         t2.run();
     }
-    
+
     var t3 = new TweenMoveTo(image, mt, null, duration);
     t3.run();
-     
+
 
     setTimeout(function() {
-        
-        var t = new TweenAlpha(image, 0, null, 1000);
-        t.run();
-        
+
+        var t17 = new TweenAlpha(image, 0, null, 1000);
+        t17.run();
+
     }, duration - 1000);
 
-    
 
 };
 
