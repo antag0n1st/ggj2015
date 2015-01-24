@@ -6,7 +6,7 @@ var Config = function () {
 };
 
 Config.debug = false;
-Config.debug_info = true;
+Config.debug_info = false;
 Config.slow_motion_factor = 1;
 Config.should_clear_stage = true;
 Config.is_auto_run = true;

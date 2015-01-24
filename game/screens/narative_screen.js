@@ -11,49 +11,56 @@ NarativeScreen.prototype.initialize = function() {
 
 
     var mt = new V();
-    mt.setLength(90);
-    mt.setAngle(Math.degrees_to_radians(45));
-    this.add_label("An allience forged",new V(200,100) , mt);
+    mt.setLength(0);
+    mt.setAngle(Math.degrees_to_radians(0));
+    this.add_label("Fortelling the future",new V(500,50) , mt, 6000);
     
     var that = this;
     
     var mt1 = new V();
-    mt1.setLength(60);
-    mt1.setAngle(Math.degrees_to_radians(180));
+    mt1.setLength(100);
+    mt1.setAngle(Math.degrees_to_radians(10));
     setTimeout(function(){
-        that.add_label("to fulfill the Destiny",new V(600,220) , mt1);
+        that.add_image("witch_intro",new V(350,130) , mt1, 0.6, 2, 0, null, 5000);
+    },1000);
+    
+    
+    setTimeout(function(){
+        that.add_image("witch_ball1",new V(550,340) , mt1, 0.6, 1, 0.5, new V(0.5, 0.5), 5000);
+    },1000);
+    
+    
+    setTimeout(function(){
+        that.add_image("witch_ball2",new V(550,340) , mt1, 0.6, 1, -0.5, new V(0.5, 0.5), 5000);
+    },1000);
+    
+    setTimeout(function(){
+        that.add_image("witch_ball3",new V(550,340) , mt1, 0.6, 1, null, new V(0.5, 0.5), 5000);
     },1000);
     
     var mt2 = new V();
-    mt2.setLength(50);
-    mt2.setAngle(Math.degrees_to_radians(-45));
+    mt2.setLength(0);
+    mt2.setAngle(Math.degrees_to_radians(90));
     setTimeout(function(){
-        that.add_label("of others",new V(550,300) , mt2, 1000);
-    },2800);
-    
-    
-    var mt3 = new V();
-    mt3.setLength(0);
-    setTimeout(function(){
-        that.add_label("But its all fake!!!",new V(500,200) , mt3, 2000);
-    },5000);
-    
-    var mt4 = new V();
-    mt4.setLength(0);
-    setTimeout(function(){
-        var label1 = new Label();
-        label1.set({text: "WHAT DO WE DO NOW?"});
-        label1.set({text_color: "#FFFFFF"});
-        label1.set({text_size: 50});
-        label1.set({text_align: "center"});
-        label1.set_position(Config.screen_width/2,Config.screen_height/2 - 30);
-        that.add_child(label1);
+        that.add_label("But when the magic ball",new V(500,150) , mt2, 5000);
     },7000);
     
     
+    var mt3 = new V();
+    mt3.setLength(30);
+    mt3.setAngle(Math.degrees_to_radians(-90));
     setTimeout(function(){
-        game.navigator.add(new GameScreen(), Screen.ANIMATION_TYPE_FADEIN);
-    },11000);
+        that.add_label("is gone",new V(650,250) , mt3, 4500);
+    },7500);
+    
+    
+    
+    
+//    
+//    
+//    setTimeout(function(){
+//        game.navigator.add(new GameScreen(), Screen.ANIMATION_TYPE_FADEIN);
+//    },11000);
     
 };
 
@@ -102,9 +109,10 @@ NarativeScreen.prototype.add_label = function(text, position, move_to, duration)
     var label1 = new Label();
     label1.set({text: text});
     label1.set({text_color: "#FFFFFF"});
-    label1.set({text_size: 34});
+    label1.set({text_size: 50});
     label1.set_alpha(0);
     
+    log(label1.text+" "+duration);
     duration = duration ? duration : 2000;
   
     label1.set_position(position.x,position.y);
@@ -112,11 +120,11 @@ NarativeScreen.prototype.add_label = function(text, position, move_to, duration)
 
     var mt = position.clone().add(move_to);
     
-    var t = new TweenAlpha(label1, 1, null, 2000);
+    var t = new TweenAlpha(label1, 1, null, 3000);
     t.run();
     
-     var t3 = new TweenMoveTo(label1, mt, null, 4000);
-     t3.run();
+    var t3 = new TweenMoveTo(label1, mt, null, duration);
+    t3.run();
      
 
     setTimeout(function() {
@@ -124,7 +132,50 @@ NarativeScreen.prototype.add_label = function(text, position, move_to, duration)
         var t = new TweenAlpha(label1, 0, null, 1000);
         t.run();
         
-    }, duration);
+    }, duration - 1000);
+
+    
+
+};
+
+
+NarativeScreen.prototype.add_image = function(name, position, move_to, scale, z_index, rotate, anchor, duration) {
+    
+    var image = new Sprite(name);
+    image.set_scale(scale);
+
+    image.set_alpha(0);
+    if(anchor)
+        image.set_anchor(anchor.x, anchor.y);
+    
+    duration = duration ? duration : 2000;
+    image.z_index=z_index;
+  
+    image.set_position(position.x,position.y);
+    this.add_child(image);
+
+    var mt = position.clone().add(move_to);
+    
+    log(image.image_name);
+    var t = new TweenAlpha(image, 1, null, 4000);
+    t.run();
+    
+    if(rotate!=0)
+    {
+        var t2 = new TweenRotate(image, rotate, null, duration);
+        t2.run();
+    }
+    
+    var t3 = new TweenMoveTo(image, mt, null, duration);
+    t3.run();
+     
+
+    setTimeout(function() {
+        
+        var t = new TweenAlpha(image, 0, null, 1000);
+        t.run();
+        
+    }, duration - 1000);
 
     
 
