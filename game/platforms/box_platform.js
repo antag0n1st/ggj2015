@@ -1,12 +1,12 @@
 //(function(window,undefined){
 
-function SolidPlatform(image_name) {
+function BoxPlatform(image_name) {
     this.initialize(image_name);
 }
 
-SolidPlatform.prototype = new Sprite();
-SolidPlatform.prototype.sprite_initialize = SolidPlatform.prototype.initialize;
-SolidPlatform.prototype.initialize = function (image_name) {
+BoxPlatform.prototype = new Sprite();
+BoxPlatform.prototype.sprite_initialize = BoxPlatform.prototype.initialize;
+BoxPlatform.prototype.initialize = function (image_name) {
     this.sprite_initialize(image_name); // your image name
     this.response = new Response();
     this.response_edge = new Response();
@@ -16,10 +16,21 @@ SolidPlatform.prototype.initialize = function (image_name) {
     this.top_y = 0;
     this.calculate_data();
     this.force_collsion_factor = 10;
-    this.is_dynamic = false;
+    this.is_dynamic = true;
+    //
+    this.gravity = new Vector(0, 0.0015);
+
+    this.is_on_ground = false;
+    this.is_edge_hold = false;
+    this.is_wall_push = false;
+    this.is_on_slope = false;
+    this.slope_id = 0;
+    this.float_id = 0;
+    this.is_object_push = false;
+    this.velocity = new V();
 };
 
-SolidPlatform.prototype.check = function (object) {
+BoxPlatform.prototype.check = function (object) {
 
     var polygon = this.bounds;
     var pos = object.get_position();
@@ -31,8 +42,6 @@ SolidPlatform.prototype.check = function (object) {
         pos.y += this.force_collsion_factor;
         object.set_position(pos.x, pos.y);
     }
-
-
 
     if (SAT.testPolygonPolygon(object.bounds, polygon, this.response)) {
 
@@ -64,7 +73,6 @@ SolidPlatform.prototype.check = function (object) {
             object.slope_id = this.id;
             overlap.x = 0;
 
-
         } else {
 
             // if it is not on a slope we continue to resolve against 
@@ -91,7 +99,7 @@ SolidPlatform.prototype.check = function (object) {
 
             if (overlap.y !== 0 && overlap.x !== 0) {
                 // the object is resolving on the edges
-
+                log("resolve on edges");
                 object.is_on_ground = false;
                 object.is_on_slope = false;
                 object.slope_id = 0;
@@ -107,61 +115,32 @@ SolidPlatform.prototype.check = function (object) {
                     object.slope_id = 0;
                 }
 
-
-
             } else if (overlap.y < 0 && overlap.x === 0) {
                 // if it is resolving below the obsticle , head hits the sealing
                 object.velocity.y = 0;
                 object.is_on_slope = false;
                 object.slope_id = 0;
+                object.head_hits_the_sealing = true;
 
             } else if (overlap.x !== 0) {
                 // its on the side of the wall
-
-
-
-                //TODO it needs refactoring
-
-                var padding = 0;
-
-                var oy = object.get_position().y - padding;
-                var sy = (this.get_position().y + this.top_y);
-
-                var dy = Math.abs(oy - sy);
-
-                // check the side at which the player is turned
-
-                // prevent the player from grabing the edge when he is turned away with his back
-//                if ((overlap.x < 0 && object.current_flipped) || (overlap.x > 0 && !object.current_flipped)) {
-//                    if (dy < 16 && object.velocity.y > 0.05) {
-//                        object.is_edge_hold = true;
-//                        pos.y = sy + padding;
-//                    }
-//                }
-
-
-
-                if ((oy - sy) > 16
-                        && !object.is_on_ground
-                        && (object.velocity.y > 0.05 || (object.velocity.y < 0 && object.velocity.y > -0.3))) {
-                    // check for the sides if he is turnd with the back
-
-//                    if ((object.current_flipped && object.velocity.x < 0) ||
-//                            (!object.current_flipped && object.velocity.x > 0)) {
-//
-//                        object.is_wall_drag = true;
-//                    } else {
-                        object.velocity.x = 0;
-//                    }
-
+             
+                if (this.is_wall_push) {
+                    object.is_object_push = false;
+                    object.is_wall_push = true;
+                    
                 } else if (object.is_on_ground) {
                     // if the object is pushing against the sides
-                    if (Config.is_auto_run) {
-                        Notes.send(Notes.NOTE_SIDE_FLIPPED, null, this);
-                    } else {
-                        object.is_wall_push = true;
-                    }
+                    object.is_object_push = true;
 
+                    var p = this.get_position();
+                    p.add(overlap);
+                    this.set_position(p.x, p.y);
+
+                    this.response_edge.clear();
+                    this.response.clear();
+
+                    return true;
                 }
 
             }
@@ -174,8 +153,8 @@ SolidPlatform.prototype.check = function (object) {
 
         this.response_edge.clear();
         this.response.clear();
-
         return true;
+
     } else {
         // there is no more collsion
         if (object.slope_id === this.id) {
@@ -194,25 +173,41 @@ SolidPlatform.prototype.check = function (object) {
     return false;
 };
 
-SolidPlatform.prototype.on_added_to_parent = function (parent) {
+BoxPlatform.prototype.on_added_to_parent = function (parent) {
     Drawable.prototype.on_added_to_parent.call(this, parent);
 
 };
 
-SolidPlatform.prototype.on_remove_from_parent = function (parent) {
+BoxPlatform.prototype.on_remove_from_parent = function (parent) {
     Drawable.prototype.on_remove_from_parent.call(this, parent);
 
 };
 
-SolidPlatform.prototype.on_draw = function (context) {
+BoxPlatform.prototype.on_draw = function (context) {
 
 };
 
-SolidPlatform.prototype.update = function (dt) {
+BoxPlatform.prototype.update = function (dt) {
 
 };
 
-SolidPlatform.prototype.calculate_data = function () {
+BoxPlatform.prototype.update_movement = function (dt) {
+
+    this.is_on_ground = false;
+    var g = this.gravity.clone().scale(dt);
+    this.velocity.add(g);
+
+
+    var v = this.velocity.clone();
+    v.scale(dt);
+
+    var p = this.get_position();
+    p.add(v);
+
+    this.set_position(p.x, p.y);
+};
+
+BoxPlatform.prototype.calculate_data = function () {
 
     // It calculates the slopes
     var polygon = this.bounds;
@@ -254,7 +249,7 @@ SolidPlatform.prototype.calculate_data = function () {
     this.top_y = min_y;
 };
 
-SolidPlatform.prototype.set_bounds = function (bounds) {
+BoxPlatform.prototype.set_bounds = function (bounds) {
 
     Sprite.prototype.set_bounds.call(this, bounds);
 
@@ -264,6 +259,6 @@ SolidPlatform.prototype.set_bounds = function (bounds) {
 
 
 
-//    window.SolidPlatform = SolidPlatform;
+//    window.BoxPlatform = BoxPlatform;
 
 //}(window));
