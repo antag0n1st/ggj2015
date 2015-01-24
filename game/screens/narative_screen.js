@@ -128,7 +128,7 @@ NarativeScreen.prototype.initialize = function() {
         var mt10 = new V();
         mt10.setLength(0);
         mt10.setAngle(Math.degrees_to_radians(90));
-        that.add_label("Ist imposible to tell the future",new V(120,30) , mt10, 4000);
+        that.add_label("It's imposible to tell the future",new V(120,30) , mt10, 4000);
     },10000);
     
     

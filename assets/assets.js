@@ -23,6 +23,7 @@ Game.prototype.load_assets = function() {
     ContentManager.add_image('witch_ball3', 'assets/images/ggj15_witch_BALL3.png');
     ContentManager.add_image('ggj15_witch_BALL3_broken', 'assets/images/ggj15_witch_BALL3_broken.png');
     ContentManager.add_image('ggj15_witch_intro_ball_brokenTotaly', 'assets/images/ggj15_witch_intro_ball_brokenTotaly.png');
+    ContentManager.add_image('tent_shadows_double', 'assets/images/ggj15_tent_shadows_double.png');
         
     ////////////////////////////////////////////////////////////////////////
 
