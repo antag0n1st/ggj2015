@@ -23,89 +23,89 @@ NarativeScreen.prototype.initialize = function() {
     }, 1000);
 
 
-//    setTimeout(function() {
-//        var mt3 = new V();
-//        mt3.setLength(100);
-//        mt3.setAngle(Math.degrees_to_radians(10));
-//        that.add_rotating_sprite("witch_ball1", new V(660, 400), mt3, 0.6, 0, 0.5, new V(0.5, 0.5), 5000);
-//    }, 1000);
-//
-//
-//    setTimeout(function() {
-//        var mt4 = new V();
-//        mt4.setLength(100);
-//        mt4.setAngle(Math.degrees_to_radians(10));
-//        that.add_rotating_sprite("witch_ball2", new V(660, 400), mt4, 0.6, 0, -0.5, new V(0.5, 0.5), 5000);
-//    }, 1000);
-//
-//
-//    setTimeout(function() {
-//        var mt5 = new V();
-//        mt5.setLength(100);
-//        mt5.setAngle(Math.degrees_to_radians(10));
-//        that.add_rotating_sprite("witch_ball3", new V(660, 400), mt5, 0.6, 0, null, new V(0.5, 0.5), 5000);
-//    }, 1000);
-//  
-//    
-//    setTimeout(function() {
-//        var mt2 = new V();
-//        mt2.setLength(100);
-//        mt2.setAngle(Math.degrees_to_radians(10));
-//        that.add_sprite("witch_intro_hands", new V(567, 350), mt2, 0.6, 0, 5000);
-//    }, 1000);
-//
-//    
-//    setTimeout(function(){
-//        var mt6 = new V();
-//        mt6.setLength(0);
-//        mt6.setAngle(Math.degrees_to_radians(90));
-//        that.add_label("But when the magick ball",new V(280,-10) , mt6, 4000);
-//    },8000);
-//    
-//    setTimeout(function(){
-//           var mt7 = new V();
-////        mt7.setLength(20);
-////        mt7.setAngle(Math.degrees_to_radians(-90));
-//        that.add_label("is gone",new V(600,60) , mt7, 3500);
-//    },8500);
-//    
-//    
-//    setTimeout(function(){
-//        var mt8 = new V();
-//        mt8.setLength(100);
-//        mt8.setAngle(Math.degrees_to_radians(190));
-//        that.add_sprite("witch_intro_luta",new V(610,150) , mt8, 0.6, 0, 0, null, 4700);
-//    },8700);
-//    
-//    setTimeout(function(){
-//        var mt9 = new V();
-//        mt9.setLength(100);
-//        mt9.setAngle(Math.degrees_to_radians(190));
-//        that.add_sprite("witch_intro_hands_luta",new V(780,350) , mt9, 0.6, 0, 0, null, 4700);
-//    },8700);
+    setTimeout(function() {
+        var mt3 = new V();
+        mt3.setLength(100);
+        mt3.setAngle(Math.degrees_to_radians(10));
+        that.add_rotating_sprite("witch_ball1", new V(660, 400), mt3, 0.6, 0, 0.5, new V(0.5, 0.5), 5000);
+    }, 1000);
 
 
+    setTimeout(function() {
+        var mt4 = new V();
+        mt4.setLength(100);
+        mt4.setAngle(Math.degrees_to_radians(10));
+        that.add_rotating_sprite("witch_ball2", new V(660, 400), mt4, 0.6, 0, -0.5, new V(0.5, 0.5), 5000);
+    }, 1000);
+
+
+    setTimeout(function() {
+        var mt5 = new V();
+        mt5.setLength(100);
+        mt5.setAngle(Math.degrees_to_radians(10));
+        that.add_rotating_sprite("witch_ball3", new V(660, 400), mt5, 0.6, 0, null, new V(0.5, 0.5), 5000);
+    }, 1000);
+  
     
-//    setTimeout(function(){
-//        var mt10 = new V();
-//        mt10.setLength(0);
-//        mt10.setAngle(Math.degrees_to_radians(90));
-//        that.add_label("Ist imposible to tell the future",new V(120,30) , mt10, 4000);
-//    },10000);
-//    
-//    
-//    setTimeout(function(){
-//        var label1 = new Label();
-//        label1.set({text: "What do we do now?"});
-//        label1.set({text_color: "#FFFFFF"});
-//        label1.set({text_size: 140});
-//        label1.set({text_font_name: "AuldMagick"});
-//
-//        label1.set_position(240, 180);
-//        that.add_child(label1);
-//    },13000);
-//    
-//    
+    setTimeout(function() {
+        var mt2 = new V();
+        mt2.setLength(100);
+        mt2.setAngle(Math.degrees_to_radians(10));
+        that.add_sprite("witch_intro_hands", new V(567, 350), mt2, 0.6, 0, 5000);
+    }, 1000);
+
+    //scene 2
+    setTimeout(function(){
+        var mt6 = new V();
+        mt6.setLength(0);
+        mt6.setAngle(Math.degrees_to_radians(90));
+        that.add_label("But when the magick ball",new V(280,-10) , mt6, 4000);
+    },6000);
+    
+    setTimeout(function(){
+           var mt7 = new V();
+//        mt7.setLength(20);
+//        mt7.setAngle(Math.degrees_to_radians(-90));
+        that.add_label("is gone",new V(600,60) , mt7, 3500);
+    },6500);
+    
+    
+    setTimeout(function(){
+        var mt8 = new V();
+        mt8.setLength(100);
+        mt8.setAngle(Math.degrees_to_radians(190));
+        that.add_sprite("witch_intro_luta",new V(610,150) , mt8, 0.6, 0, 3500);
+    },6700);
+    
+    setTimeout(function(){
+        var mt9 = new V();
+        mt9.setLength(100);
+        mt9.setAngle(Math.degrees_to_radians(190));
+        that.add_sprite("witch_intro_hands_luta",new V(780,350) , mt9, 0.6, 0, 3500);
+    },6700);
+
+
+    //scene 3
+    setTimeout(function(){
+        var mt10 = new V();
+        mt10.setLength(0);
+        mt10.setAngle(Math.degrees_to_radians(90));
+        that.add_label("Ist imposible to tell the future",new V(120,30) , mt10, 4000);
+    },10000);
+    
+    
+    setTimeout(function(){
+        var label1 = new Label();
+        label1.set({text: "What do we do now?"});
+        label1.set({text_color: "#FFFFFF"});
+        label1.set({text_size: 140});
+        label1.set({text_font_name: "AuldMagick"});
+
+        label1.set_position(240, 180);
+        that.add_child(label1);
+    },13000);
+    
+    
 //    setTimeout(function(){
 //        game.navigator.add(new GameScreen(), Screen.ANIMATION_TYPE_FADEIN);
 //    },16000);
@@ -205,10 +205,10 @@ NarativeScreen.prototype.add_sprite = function(name, position, move_to, scale, z
     var t3 = new TweenMoveTo(image, mt, null, duration);
     t3.run();
 
-
+    var that=this;
     setTimeout(function() {
-
-        var t17 = new TweenAlpha(image, 0, null, 1000);
+        
+        var t17 = new TweenAlpha(image, 0, null, 1000, function(){that.remove_child(image);});
         t17.run();
 
     }, duration - 1000);
