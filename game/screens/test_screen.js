@@ -9,10 +9,32 @@ TestScreen.prototype.screen_initialize = TestScreen.prototype.initialize;
 TestScreen.prototype.initialize = function () {
     this.screen_initialize();
     
+    var that=this;
+    
     var tent = new Tent();
-    tent.set_position(500, 400);
+    tent.set_position(600, 600);
     this.add_child(tent);
     tent.play('glow');
+    
+    var dialog1 = new Bubble(["What is my", "future?"], 2000, "goat_head", true);
+    dialog1.set_position(100, -350);
+    tent.add_child(dialog1);
+    dialog1.show();
+    
+    setTimeout(function() {
+        var dialog1 = new Bubble(["Your destiny is", "to die by piano", "crashing on your", "head"], 3000, "witch_head", false);
+        dialog1.set_position(-140, -240);
+        tent.add_child(dialog1);
+        dialog1.show();
+    }, 3000);
+    
+    
+    setTimeout(function() {
+        var dialog1 = new Bubble(["Let's create", "some destiny"], 2000, "witch_head", false);
+        dialog1.set_position(-140, -240);
+        tent.add_child(dialog1);
+        dialog1.show();
+    }, 10000);
 
 };
 
