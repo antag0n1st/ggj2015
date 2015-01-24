@@ -12,12 +12,16 @@
         this.screen_initialize();
         //hello vlatko , hello to you
         
-        this.dialog1 = new Bubble("hello world");
+        this.dialog1 = new Bubble(["hello world1", "hello world2", "hello world3", "hello world4"], 2000, true);
+        this.dialog2 = new Bubble(["hello world1", "hello world2", "hello world3", "hello world4"], 2000, false);
         
-        this.dialog1.set_position(200,200);
+        this.dialog1.set_position(600,300);
+        this.dialog2.set_position(600,300);
         this.add_child(this.dialog1);
+        this.add_child(this.dialog2);
         
         this.dialog1.show();
+        this.dialog2.show();
     };
 
     GameScreen.prototype.on_note = function (note, sender, data) {
