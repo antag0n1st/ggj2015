@@ -14,7 +14,7 @@
                 animations: {
                     glow: {start: 0, end: 1, loop: true, duration: 500}
                 }
-                , reg: {x: 0.5, y: 0.5, width: 1.0, height: 1.0}
+                , reg: {x: 0.5, y: 1, width: 1.0, height: 1.0}
             }]);
 
         this.animation_initialize(sprite_sheet);
