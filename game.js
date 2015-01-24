@@ -40,7 +40,7 @@
 
             ContentManager.download_resources(this.stage, function() {
                 window.setTimeout(function() {
-                    game.navigator.add(new GameScreen(), Screen.ANIMATION_TYPE_FADEIN);
+                    game.navigator.add(new NarativeScreen(), Screen.ANIMATION_TYPE_FADEIN);
                 }, 300);
             });
 
