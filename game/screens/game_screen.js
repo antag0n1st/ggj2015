@@ -25,7 +25,7 @@
 
         this.player = null;
         this.goat = null;
-        
+
         this.trackable_object = null;
 
         this.import_level(ContentManager.current_level_data);
@@ -107,20 +107,20 @@
             sender.emitter.stop();
             sender.remove_from_parent();
             sender.is_dead = true;
-        } else if (note === Notes.NOTE_YOU_LOOSE) {            
+        } else if (note === Notes.NOTE_YOU_LOOSE) {
             sender.remove_from_parent();
-            
-            setTimeout(function(){
+
+            setTimeout(function () {
                 game.navigator.add(new LooseScreen(), Screen.ANIMATION_TYPE_FADEIN);
-            },600);
-            
+            }, 600);
+
         } else if (note === Notes.NOTE_GOAT_SPAWN) {
             var forground = this.get_layer_by_name("playground");
             forground.add_child(this.goat);
         } else if (note === Notes.NOTE_DIALOG_FINISHED) {
-          this.trackable_object = this.player;
+            this.trackable_object = this.player;
         }
-        
+
     };
 
     GameScreen.prototype.on_level_start = function () {
@@ -379,7 +379,7 @@
                 this.goat = new Goat();
                 this.goat.set_position(o.pos.x, o.pos.y);
                 this.goat.z_index = 3;
-               // forground.add_child(this.goat);
+                // forground.add_child(this.goat);
 
                 this.goat.platforms = this.platforms;
                 this.goat.objects = this.objects;
@@ -387,7 +387,7 @@
                 this.goat.sensors = this.sensors;
 
             } else if (o.type === 'End') {
-                
+
                 var points = [];
                 for (var j = 0; j < o.points.length; j++) {
                     var p = o.points[j];
@@ -398,19 +398,19 @@
                 var b = new Polygon(new V(o.pos.x, o.pos.y), points);
                 sensor.set_bounds(b);
                 sensor.set_position(o.pos.x, o.pos.y);
-                
+
                 layer.add_child(sensor);
                 this.sensors.push(sensor);
-                
+
             } else if (o.type === 'Tent') {
-               
+
                 var tent = new Tent();
                 tent.set_position(o.pos.x, o.pos.y);
                 tent.play('glow');
                 layer.add_child(tent);
                 this.trackable_object = tent;
-                this.track(this.trackable_object,true);
-                
+                this.track(this.trackable_object, true);
+
             }
 
         }
@@ -419,9 +419,11 @@
 
     };
 
-    GameScreen.prototype.track = function (object,immidiate) {
-        
-        if(!object){ return; }
+    GameScreen.prototype.track = function (object, immidiate) {
+
+        if (!object) {
+            return;
+        }
 
         var target_pos = object.bounds.pos;
 
@@ -433,8 +435,8 @@
 
         var angle = Math.get_angle(center_camera, target_pos);
         var distance = Math.get_distance(center_camera, target_pos);
-        
-        distance = (distance > 10 && !immidiate) ? Ticker.step  : distance;
+
+        distance = (distance > 10 && !immidiate) ? Ticker.step : distance;
 
         var v = new Vector();
         v.setLength(distance);
@@ -461,9 +463,9 @@
         }
         return false;
     };
-    
-    GameScreen.prototype.reset_level = function(){
-        
+
+    GameScreen.prototype.reset_level = function () {
+
     };
 
     GameScreen.prototype.update = function (dt) {
@@ -488,6 +490,15 @@
         this.track(this.trackable_object);
 
         this.handle_visibility();
+    };
+
+    GameScreen.prototype.draw = function (context) {
+        Screen.prototype.draw.call(this, context);
+
+        var fs = context.fillStyle;
+        context.fillStyle = "#efdbd8";
+        context.fillRect(0, 0, Config.screen_width, Config.screen_height);
+        context.fillStyle = fs;
     };
 
     GameScreen.prototype.show = function () {

@@ -15,10 +15,7 @@ Bubble.prototype.initialize = function (message, time_stay, person_image, is_rig
     for(var i=0;i<4;i++)
         if(typeof(message[i])==="undefined")
             this.message[i]=" ";
-    
-//    for(var i=0;i<4;i++)
-//        log(this.message[i]);
-//    
+     
     this.c1 = new Sprite('white_circle');
     this.c1.set_scale(0.1);
     this.c1.set_anchor(0.5,0.5);
@@ -49,28 +46,28 @@ Bubble.prototype.initialize = function (message, time_stay, person_image, is_rig
     
     this.label1 = new Label();
     this.label1.set({text:this.message[0]});
-    this.label1.set({text_color:"#FF0000"});
+    this.label1.set({text_color:"#000000"});
     this.label1.set({text_size:34});
     this.label1.set_alpha(0);
     this.add_child(this.label1);
     
     this.label2 = new Label();
     this.label2.set({text:this.message[1]});
-    this.label2.set({text_color:"#FF0000"});
+    this.label2.set({text_color:"#000000"});
     this.label2.set({text_size:34});
     this.label2.set_alpha(0);
     this.add_child(this.label2);
     
     this.label3 = new Label();
     this.label3.set({text:this.message[2]});
-    this.label3.set({text_color:"#FF0000"});
+    this.label3.set({text_color:"#000000"});
     this.label3.set({text_size:34});
     this.label3.set_alpha(0);
     this.add_child(this.label3);
     
     this.label4 = new Label();
     this.label4.set({text:this.message[3]});
-    this.label4.set({text_color:"#FF0000"});
+    this.label4.set({text_color:"#000000"});
     this.label4.set({text_size:34});
     this.label4.set_alpha(0);
     this.add_child(this.label4);

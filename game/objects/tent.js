@@ -20,7 +20,7 @@ Tent.prototype.initialize = function () {
     this.animation_initialize(sprite_sheet);
 
     var dialog1 = new Bubble(["What is my", "future?"], 2000, "goat_head", true);
-    dialog1.set_position(100, -150);
+    dialog1.set_position(0, -150);
     this.add_child(dialog1);
     dialog1.show();
     
@@ -30,7 +30,7 @@ Tent.prototype.initialize = function () {
 
     setTimeout(function () {
         var dialog1 = new Bubble(["Your destiny is", "to die by piano", "crashing on your", "head"], 3000, "witch_head", false);
-        dialog1.set_position(-140, -240);
+        dialog1.set_position(-50, -240);
         that.add_child(dialog1);
         dialog1.show();
     }, 3000);
@@ -41,7 +41,7 @@ Tent.prototype.initialize = function () {
 
     setTimeout(function () {
         var dialog1 = new Bubble(["Let's create", "some destiny"], 2000, "witch_head", false);
-        dialog1.set_position(-140, -240);
+        dialog1.set_position(-50, -240);
         that.add_child(dialog1);
         dialog1.show();
 
@@ -49,10 +49,7 @@ Tent.prototype.initialize = function () {
             Notes.send(Notes.NOTE_DIALOG_FINISHED);
         }, 2000);
 
-    }, 10000);
-
-
-
+    }, 8600);
 
 };
 
