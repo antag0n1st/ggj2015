@@ -134,7 +134,7 @@ NarativeScreen.prototype.initialize = function() {
     
      setTimeout(function(){
         var label1 = new Label();
-        label1.set({text: "What do we do now?"});
+        label1.set({text: "######?"});
         label1.set({text_color: "#FFFFFF"});
         label1.set({text_size: 140});
         label1.set({text_font_name: "AuldMagick"});

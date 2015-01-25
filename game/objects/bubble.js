@@ -1,16 +1,23 @@
 //(function(window,undefined){
 
-function Bubble(message, time_stay, is_right) {
-    this.initialize(message, time_stay, is_right);
+function Bubble(message, time_stay, person_image, is_right) {
+    this.initialize(message, time_stay, person_image, is_right);
 }
 
 Bubble.prototype = new Drawable();
 Bubble.prototype.drawable_initialize = Bubble.prototype.initialize;
-Bubble.prototype.initialize = function (message, time_stay, is_right) {
+Bubble.prototype.initialize = function (message, time_stay, person_image, is_right) {
     this.drawable_initialize();
 
     this.message = message;
     this.time_stay=time_stay;
+    
+    for(var i=0;i<4;i++)
+        if(typeof(message[i])==="undefined")
+            this.message[i]=" ";
+    
+    for(var i=0;i<4;i++)
+        log(this.message[i]);
     
     this.c1 = new Sprite('white_circle');
     this.c1.set_scale(0.1);
@@ -36,30 +43,33 @@ Bubble.prototype.initialize = function (message, time_stay, is_right) {
     this.bubble.set_scale(0.4);
     this.add_child(this.bubble);
     
+    this.person_pic = new Sprite(person_image);
+    this.bubble.add_child(this.person_pic);
+    
     
     this.label1 = new Label();
-    this.label1.set({text:message[0]});
+    this.label1.set({text:this.message[0]});
     this.label1.set({text_color:"#FF0000"});
     this.label1.set({text_size:34});
     this.label1.set_alpha(0);
     this.add_child(this.label1);
     
     this.label2 = new Label();
-    this.label2.set({text:message[1]});
+    this.label2.set({text:this.message[1]});
     this.label2.set({text_color:"#FF0000"});
     this.label2.set({text_size:34});
     this.label2.set_alpha(0);
     this.add_child(this.label2);
     
     this.label3 = new Label();
-    this.label3.set({text:message[2]});
+    this.label3.set({text:this.message[2]});
     this.label3.set({text_color:"#FF0000"});
     this.label3.set({text_size:34});
     this.label3.set_alpha(0);
     this.add_child(this.label3);
     
     this.label4 = new Label();
-    this.label4.set({text:message[3]});
+    this.label4.set({text:this.message[3]});
     this.label4.set({text_color:"#FF0000"});
     this.label4.set({text_size:34});
     this.label4.set_alpha(0);
@@ -70,6 +80,7 @@ Bubble.prototype.initialize = function (message, time_stay, is_right) {
         this.c2.set_position(50, 10);
         this.c3.set_position(90, -30);
         this.bubble.set_position(280, -160);
+        this.person_pic.set_position(80, 60);
         this.label1.set_position(120, -250);
         this.label2.set_position(120, -210);
         this.label3.set_position(120, -170);
@@ -81,10 +92,11 @@ Bubble.prototype.initialize = function (message, time_stay, is_right) {
         this.c2.set_position(-30, 10);
         this.c3.set_position(-70, -30);
         this.bubble.set_position(-260, -160);
-        this.label1.set_position(-420, -250);
-        this.label2.set_position(-420, -210);
-        this.label3.set_position(-420, -170);
-        this.label4.set_position(-420, -130);
+        this.person_pic.set_position(-230, 90);
+        this.label1.set_position(-420, -260);
+        this.label2.set_position(-420, -220);
+        this.label3.set_position(-420, -180);
+        this.label4.set_position(-420, -140);
     }
 };
 
