@@ -23,6 +23,7 @@ LooseScreen.prototype.initialize = function () {
     },1000);
     
     setTimeout(function(){
+        Notes.send(Notes.NOTE_RESET_LEVEL);
         game.navigator.go_back(Screen.ANIMATION_TYPE_FADEIN);
     },5000);    
 

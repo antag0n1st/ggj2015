@@ -9,8 +9,9 @@ WinScreen.prototype.screen_initialize = WinScreen.prototype.initialize;
 WinScreen.prototype.initialize = function() {
     this.screen_initialize();
 
+    Notes.send(Notes.NOTE_LOAD_NEXT_LEVEL);
 
-    this.add_label("The destiny is fullfill!", new V(400, 50), new V(), 4000);
+    this.add_label("The destiny is fullfill!", new V(Config.screen_width/2, 250), new V(), 4000);
 
     var that = this;
 
@@ -18,13 +19,14 @@ WinScreen.prototype.initialize = function() {
         var mt10 = new V();
         mt10.setLength(10);
         mt10.setAngle(Math.degrees_to_radians(-90));
-        that.add_label("Going to next level",new V(440,250) , mt10, 4000);
+        that.add_label("Going to next level",new V(Config.screen_width/2,350) , mt10, 4000);
     },1000);
     
     
-//    setTimeout(function(){
-//        game.navigator.add(new GameScreen(), Screen.ANIMATION_TYPE_FADEIN);
-//    },16000);
+    setTimeout(function(){
+        
+        game.navigator.go_back(Screen.ANIMATION_TYPE_FADEIN);
+    },5000);
 
 };
 
@@ -72,6 +74,7 @@ WinScreen.prototype.add_label = function(text, position, move_to, duration) {
 
     var label1 = new Label();
     label1.set({text: text});
+    label1.set({text_align:'center'});
     label1.set({text_color: "#FFFFFF"});
     label1.set({text_size: 140});
     label1.set({text_font_name: "AuldMagick"});

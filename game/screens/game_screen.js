@@ -12,6 +12,8 @@
         this.screen_initialize();
 
         this.is_level_loaded = false;
+        
+        this.current_level = 1;
 
         this.layers = [];
         this.platforms = [];
@@ -35,6 +37,8 @@
         Notes.add(this, Notes.NOTE_YOU_WIN);
         Notes.add(this, Notes.NOTE_GOAT_SPAWN);
         Notes.add(this, Notes.NOTE_DIALOG_FINISHED);
+        Notes.add(this, Notes.NOTE_RESET_LEVEL);
+        Notes.add(this, Notes.NOTE_LOAD_NEXT_LEVEL);
 
     };
 
@@ -100,14 +104,22 @@
     };
 
     GameScreen.prototype.on_note = function (note, data, sender) {
+
         if (note === Notes.NOTE_CHARACTER_IS_DEAD) {
+
             sender.emitter.emission_point = sender.get_position().clone().add(new V(0, -80));
             sender.emitter.run();
             sender.emitter.step(1500);
             sender.emitter.stop();
             sender.remove_from_parent();
             sender.is_dead = true;
+
+            setTimeout(function () {
+                game.navigator.add(new WinScreen(), Screen.ANIMATION_TYPE_FADEIN);
+            }, 1500);
+
         } else if (note === Notes.NOTE_YOU_LOOSE) {
+
             sender.remove_from_parent();
 
             setTimeout(function () {
@@ -115,12 +127,24 @@
             }, 600);
 
         } else if (note === Notes.NOTE_GOAT_SPAWN) {
+
             var forground = this.get_layer_by_name("playground");
             forground.add_child(this.goat);
+
         } else if (note === Notes.NOTE_DIALOG_FINISHED) {
+
             this.trackable_object = this.player;
+
+        } else if (note === Notes.NOTE_RESET_LEVEL) {
+            this.reset_level();
+        } else if (note === Notes.NOTE_LOAD_NEXT_LEVEL) {
+            this.load_next_level();
         }
 
+    };
+    
+    GameScreen.prototype.load_next_level = function(){
+        log('should load next level here');
     };
 
     GameScreen.prototype.on_level_start = function () {
@@ -466,6 +490,28 @@
 
     GameScreen.prototype.reset_level = function () {
 
+        this.is_level_loaded = false;
+
+        this.layers = [];
+        this.platforms = [];
+        this.objects = [];
+        this.obsticles = [];
+        this.sensors = [];
+
+        this.grids = [];
+
+        this.player = null;
+        this.goat = null;
+        this.trackable_object = null;
+        
+        for(var i=this.children.length-1;i >= 0;i--){
+            var c = this.children[i];
+            c.remove_from_parent();
+        }
+
+        this.import_level(ContentManager.current_level_data);
+
+
     };
 
     GameScreen.prototype.update = function (dt) {
@@ -503,7 +549,7 @@
 
     GameScreen.prototype.show = function () {
         Screen.prototype.show.call(this);
-        this.reset_level();
+        // this.reset_level();
     };
 
     GameScreen.prototype.hide = function () {
