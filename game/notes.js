@@ -6,3 +6,5 @@ Notes.NOTE_GOAT_SPAWN = 'gote spawn';
 Notes.NOTE_DIALOG_FINISHED = 'dialog finished';
 Notes.NOTE_RESET_LEVEL = 'reset level';
 Notes.NOTE_LOAD_NEXT_LEVEL = 'load next level';
+Notes.NOTE_CHECK_SWITCH = 'check switch';
+Notes.NOTE_SWITCH_OBJECT = 'switch object';

@@ -8,8 +8,19 @@ Switch1.prototype = new Drawable();
 Switch1.prototype.drawable_initialize = Switch1.prototype.initialize;
 Switch1.prototype.initialize = function (message, time_stay, person_image, is_right) {
     this.drawable_initialize();
+    
+    this.sensor = new Sprite('transparent');
+    
+    this.add_child(this.sensor);
+    
+    this.sensor.set_size(100,100);
+    this.sensor.set_position(0,0);
+    this.sensor.set_anchor(0.5,0.5);
+    
+   
 
     this.base = new Sprite('switch_base');
+    this.base.set_scale(0.5);
     this.base.set_position(0, 0);
     //this.base.set_scale(0.1);
     this.base.set_anchor(0.5, 0.5);
@@ -18,6 +29,7 @@ Switch1.prototype.initialize = function (message, time_stay, person_image, is_ri
     //this.base.set_alpha(0);
 
     this.handle = new Sprite('switch_handle');
+    this.handle.set_scale(0.5);
     //this.handle.set_position(110, 80);
     this.handle.set_anchor(0.5, 0.9);
     this.add_child(this.handle);
@@ -25,17 +37,15 @@ Switch1.prototype.initialize = function (message, time_stay, person_image, is_ri
 
     this.add_child(this.base);
     
+    this.object = null;
+     this.graphic = null;
+    
+     
+    this.is_state_on = false;
+    
     
     this.handle.rotate_to(Math.degrees_to_radians(60));
     
-    
-    this.turn_on();
-    
-    var that=this;
-    
-    setTimeout(function () {
-        that.turn_off();
-    }, 1000);
     
 };
 
@@ -45,6 +55,7 @@ Switch1.prototype.show = function () {
 
 Switch1.prototype.on_added_to_parent = function (parent) {
     Drawable.prototype.on_added_to_parent.call(this, parent);
+    this.is_state_on = false;
 
 };
 
@@ -62,14 +73,18 @@ Switch1.prototype.clear = function (context) {
 };
 
 Switch1.prototype.turn_on = function (context) {
+    this.is_state_on = true;
     var t = new TweenRotateTo(this.handle,Math.degrees_to_radians(-60),null,400);
     t.run();
+    Notes.send(Notes.NOTE_SWITCH_OBJECT,null,this);
 };
 
 
 Switch1.prototype.turn_off = function (context) {
+    this.is_state_on = false;
     var t = new TweenRotateTo(this.handle,Math.degrees_to_radians(60),null,400);
     t.run();
+    Notes.send(Notes.NOTE_SWITCH_OBJECT,null,this);
 };
 
 //    window.Switch1 = Switch1;

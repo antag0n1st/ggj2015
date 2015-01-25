@@ -269,7 +269,11 @@ Goat.prototype.update = function (dt) {
 
     for (var i = 0; i < this.sensors.length; i++)
     {
-        this.sensors[i].check(this);
+        if(this.sensors[i].check(this)){
+            if(this.sensors[i] instanceof Spikes){
+                Notes.send(Notes.NOTE_CHARACTER_IS_DEAD,null,this);
+            }
+        };
     }
 
     // handle animation 

@@ -7,6 +7,7 @@ Game.prototype.load_assets = function() {
     ContentManager.add_image('white_circle', 'assets/images/white_circle.png');
 
     ContentManager.add_image('blood', 'assets/images/blood.png');
+    ContentManager.add_image('transparent', 'assets/images/transparent.png');
     
     ContentManager.add_spine_animation('dwarf');
     ContentManager.add_spine_animation('goat');
@@ -32,7 +33,10 @@ Game.prototype.load_assets = function() {
     ContentManager.add_image('switch_base', 'assets/images/ggj15_switch_kamen.png');
     ContentManager.add_image('switch_handle', 'assets/images/ggj15_switch_rachka.png');
     
+    ContentManager.add_image('ggj15_most', 'assets/images/ggj15_most.png');
+    ContentManager.add_image('shilci', 'assets/images/shilci.png');
     
+    // 
     
 //    
 //    ContentManager.add_sound('labels_intro', 'assets/sounds/labeli_intro');

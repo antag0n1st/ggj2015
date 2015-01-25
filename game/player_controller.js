@@ -18,44 +18,21 @@
 
             this.kibo = new Kibo();
 
-            // attack keys
-
-            this.kibo.down('a', function () {
-                that.is_attacking = true;
-                return false;
-            });
-
-            this.kibo.down('s', function () {
-                that.is_orb_attacking = true;
-                return false;
-            });
-
+           
 
             /////////////////
 
             this.kibo.down('space', function () {
-
-                that.is_up_holding = true;
-
-                if (!that.is_up_locked) {
-                    that.is_up_locked = true;
-                    that.is_up_pressed = true;
-                    that.handle_down();
-                }
-
+                that.is_space = true;
+                
                 return false;
             });
 
             this.kibo.up('space', function () {
-                that.is_up_holding = false;
-                that.is_up_locked = false;
-                that.is_up_pressed = false;
-                that.handle_up();
+                that.is_space = false;
+                Notes.send(Notes.NOTE_CHECK_SWITCH);
             });
 
-            this.kibo.down('ctrl', function () {
-                that.is_orb_attacking = true;
-            });
 
             this.kibo.down('up', function () {
                 that.is_up_holding = true;
@@ -72,11 +49,7 @@
                 that.handle_down();
                 return false;
             });
-            this.kibo.down('down', function () {
-                that.is_down_pressed = true;
-                that.handle_down();
-                return false;
-            });
+            
             this.kibo.down('left', function () {
                 that.is_left_pressed = true;
                 that.last_pressed = 4;
@@ -96,10 +69,7 @@
                 that.is_right_pressed = false;
                 that.handle_up();
             });
-            this.kibo.up('down', function () {
-                that.is_down_pressed = false;
-                that.handle_up();
-            });
+            
             this.kibo.up('left', function () {
                 that.is_left_pressed = false;
                 that.handle_up();
@@ -187,6 +157,8 @@
         this.is_orb_attacking = false;
 
         this.last_pressed = 0;
+        
+        this.is_space = false;
     };
 
     window.PlayerController = PlayerController;

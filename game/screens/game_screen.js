@@ -20,6 +20,8 @@
         this.objects = [];
         this.obsticles = [];
         this.sensors = [];
+        this.switches = [];
+        this.obsticles = [];
 
         this.grids = [];
 
@@ -39,6 +41,8 @@
         Notes.add(this, Notes.NOTE_DIALOG_FINISHED);
         Notes.add(this, Notes.NOTE_RESET_LEVEL);
         Notes.add(this, Notes.NOTE_LOAD_NEXT_LEVEL);
+        Notes.add(this, Notes.NOTE_CHECK_SWITCH);
+        Notes.add(this, Notes.NOTE_SWITCH_OBJECT);
 
     };
 
@@ -122,6 +126,12 @@
 
             sender.remove_from_parent();
 
+            if (sender === this.player) {
+                this.player = null;
+            } else if (sender === this.goat) {
+                this.goat = null;
+            }
+
             setTimeout(function () {
                 game.navigator.add(new LooseScreen(), Screen.ANIMATION_TYPE_FADEIN);
             }, 600);
@@ -139,6 +149,54 @@
             this.reset_level();
         } else if (note === Notes.NOTE_LOAD_NEXT_LEVEL) {
             this.load_next_level();
+        } else if (note === Notes.NOTE_CHECK_SWITCH) {
+
+            Notes.send(Notes.NOTE_DIALOG_FINISHED);
+
+            for (var i = 0; i < this.switches.length; i++) {
+                var s = this.switches[i];
+
+                if (SAT.testPolygonPolygon(s.sensor.bounds, this.player.bounds)) {
+                    if (s.is_state_on) {
+                        s.turn_off();
+                    } else {
+                        s.turn_on();
+                    }
+                }
+
+            }
+
+
+        } else if (note === Notes.NOTE_SWITCH_OBJECT) {
+            // check the sender
+
+            if (sender.object instanceof OneWayPlatform) {
+
+
+
+                var p = sender.object.get_position();
+                var p1 = 280;
+                if (sender.is_state_on) {
+                    p1 = -280;
+                }
+
+                var t = new TweenMoveTo(sender.object, p.clone().add(new V(p1, 0)), null, 500);
+                t.run();
+
+                var t2 = new TweenMoveTo(sender.graphic, p.clone().add(new V(p1, 0)), null, 500);
+                t2.run();
+
+            } else if (sender.object instanceof SolidPlatform) {
+                var p = sender.object.get_position();
+                var p1 = 400;
+                if (sender.is_state_on) {
+                    p1 = -400;
+                }
+
+                var t = new TweenMoveTo(sender.object, p.clone().add(new V(0, p1)), null, 500);
+                t.run();
+            }
+
         }
 
     };
@@ -146,26 +204,23 @@
     GameScreen.prototype.load_next_level = function () {
 
         if (this.current_level === 2) {
-            log('this is the end');
+            game.navigator.add(new EndScreen(), Screen.ANIMATION_TYPE_FADEIN);
+        } else {
+
+            this.current_level++;
+
+            var that = this;
+            ContentManager.add_file('assets/levels/level_' + this.current_level + '.json', function (data) {
+                ContentManager.current_level_data = data;
+                that.reset_level();
+            }, function () {
+
+            });
+            
+            ContentManager.download_resources(this.stage, function () {
+
+            });
         }
-        
-        this.current_level++;
-
-        var that = this;
-        ContentManager.add_file('assets/levels/level_'+this.current_level+'.json', function (data) {
-            ContentManager.current_level_data = data;
-            that.reset_level();
-        }, function () {
-
-        });
-        
-        
-
-
-        ContentManager.download_resources(this.stage, function () {
-
-        });
-
     };
 
     GameScreen.prototype.on_level_start = function () {
@@ -328,6 +383,22 @@
                     this.platforms.push(platform);
                     layer.add_child(platform);
 
+                } else if (o.type === "Obsticle") { // Solid Platform
+
+                    var points = [];
+                    for (var j = 0; j < o.points.length; j++) {
+                        var p = o.points[j];
+                        points.push(new V(p.x, p.y));
+                    }
+
+                    var platform = new Sprite('');
+                    var b = new Polygon(new V(o.pos.x, o.pos.y), points);
+                    platform.set_bounds(b);
+                    platform.set_position(o.pos.x, o.pos.y);
+                    platform.c_index = o.c_index;
+                    this.obsticles.push(platform);
+                    layer.add_child(platform);
+
                 }
             }
 
@@ -456,6 +527,69 @@
                 this.trackable_object = tent;
                 this.track(this.trackable_object, true);
 
+            } else if (o.type === 'Switch') {
+
+                var s = new Switch1();
+                s.set_position(o.pos.x, o.pos.y);
+                layer.add_child(s);
+                this.switches.push(s);
+
+                var c = o.children[0];
+
+
+
+                if (c) {
+                    if (c.type === 'Switch Bridge') {
+
+                        var points = [];
+                        for (var j = 0; j < c.points.length; j++) {
+                            var p = c.points[j];
+                            points.push(new V(p.x, p.y));
+                        }
+
+                        var ppp = new V(o.pos.x, o.pos.y).add(new V(c.pos.x, c.pos.y));
+
+                        var platform = new OneWayPlatform();
+                        var b = new Polygon(new V(c.pos.x, c.pos.y), points);
+                        platform.set_bounds(b);
+                        platform.set_position(ppp.x, ppp.y);
+                        this.platforms.push(platform);
+                        layer.add_child(platform);
+
+                        s.object = platform;
+
+                        var g = new Sprite('ggj15_most');
+                        g.set_position(ppp.x, ppp.y);
+                        g.z_index = 5;
+                        layer.add_child(g);
+                        s.graphic = g;
+
+                    } else if (c.type === 'Switch Stone') {
+
+                        var shilci = new SolidPlatform('shilci');
+                        var ppp = new V(o.pos.x, o.pos.y).add(new V(c.pos.x, c.pos.y));
+                        shilci.set_position(ppp.x, ppp.y);
+                        this.platforms.push(shilci);
+                        layer.add_child(shilci);
+                        s.object = shilci;
+
+                        var platform = new Spikes();
+
+                        platform.set_position(2, -5);
+                        platform.c_index = o.c_index;
+                        this.sensors.push(platform);
+                        shilci.add_child(platform);
+
+
+                    }
+                }
+
+
+
+                // Switch Bridge
+                // Switch Stone
+
+
             }
 
         }
@@ -518,6 +652,8 @@
         this.objects = [];
         this.obsticles = [];
         this.sensors = [];
+        this.switches = [];
+        this.obsticles = [];
 
         this.grids = [];
 
@@ -552,6 +688,26 @@
                     this.platforms[i].check(o);
                 }
             }
+        }
+
+        for (var i = 0; i < this.obsticles.length; i++) {
+            var obs = this.obsticles[i];
+
+            if (this.player) {
+                if (SAT.testPolygonPolygon(this.player.bounds, obs.bounds)) {
+                    Notes.send(Notes.NOTE_YOU_LOOSE, null, this.player);
+                }
+            }
+
+
+            if (this.goat) {
+                if (SAT.testPolygonPolygon(this.goat.bounds, obs.bounds)) {
+                    Notes.send(Notes.NOTE_YOU_LOOSE, null, this.goat);
+                }
+            }
+
+
+
         }
 
         this.track(this.trackable_object);
