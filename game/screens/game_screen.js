@@ -12,7 +12,7 @@
         this.screen_initialize();
 
         this.is_level_loaded = false;
-        
+
         this.current_level = 1;
 
         this.layers = [];
@@ -142,9 +142,30 @@
         }
 
     };
-    
-    GameScreen.prototype.load_next_level = function(){
-        log('should load next level here');
+
+    GameScreen.prototype.load_next_level = function () {
+
+        if (this.current_level === 2) {
+            log('this is the end');
+        }
+        
+        this.current_level++;
+
+        var that = this;
+        ContentManager.add_file('assets/levels/level_'+this.current_level+'.json', function (data) {
+            ContentManager.current_level_data = data;
+            that.reset_level();
+        }, function () {
+
+        });
+        
+        
+
+
+        ContentManager.download_resources(this.stage, function () {
+
+        });
+
     };
 
     GameScreen.prototype.on_level_start = function () {
@@ -503,8 +524,8 @@
         this.player = null;
         this.goat = null;
         this.trackable_object = null;
-        
-        for(var i=this.children.length-1;i >= 0;i--){
+
+        for (var i = this.children.length - 1; i >= 0; i--) {
             var c = this.children[i];
             c.remove_from_parent();
         }
