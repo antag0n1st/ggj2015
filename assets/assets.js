@@ -28,6 +28,9 @@ Game.prototype.load_assets = function() {
     ContentManager.add_image('dwarf_head', 'assets/images/dwarf_head.png');
     ContentManager.add_image('witch_head', 'assets/images/witch_head.png');
     ContentManager.add_image('goat_head', 'assets/images/goat_head.png');
+    ContentManager.add_image('smoke', 'assets/images/smoke.png');
+    ContentManager.add_image('switch_base', 'assets/images/ggj15_switch_kamen.png');
+    ContentManager.add_image('switch_handle', 'assets/images/ggj15_switch_rachka.png');
     
     
     

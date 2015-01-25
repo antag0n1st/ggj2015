@@ -11,10 +11,9 @@ TestScreen.prototype.initialize = function () {
     
     var that=this;
     
-    var tent = new Tent();
-    tent.set_position(600, 600);
-    this.add_child(tent);
-    tent.play('glow');
+    var switch1 = new Switch1();
+    switch1.set_position(300, 300);
+    this.add_child(switch1);
     
     
 
