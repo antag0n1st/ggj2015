@@ -80,7 +80,7 @@ Bubble.prototype.initialize = function (message, time_stay, person_image, is_rig
         this.c2.set_position(50, 10);
         this.c3.set_position(90, -30);
         this.bubble.set_position(280, -160);
-        this.person_pic.set_position(80, 60);
+        this.person_pic.set_position(60, 0);
         this.label1.set_position(120, -250);
         this.label2.set_position(120, -200);
         this.label3.set_position(120, -150);
