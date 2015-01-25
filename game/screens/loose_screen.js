@@ -9,7 +9,9 @@ LooseScreen.prototype.screen_initialize = LooseScreen.prototype.initialize;
 LooseScreen.prototype.initialize = function () {
     this.screen_initialize();
     
-    this.add_label("Destiny Not Fulfilled!", new V(400, 200), new V(), 4000);
+   
+    
+    this.add_label("Destiny Not Fulfilled!", new V(Config.screen_width/2, 200), new V(), 4000);
 
     var that = this;
 
@@ -17,7 +19,7 @@ LooseScreen.prototype.initialize = function () {
         var mt10 = new V();
         mt10.setLength(10);
         mt10.setAngle(Math.degrees_to_radians(0));
-        that.add_label("Try Again",new V(600,300) , mt10, 4000);
+        that.add_label("Try Again",new V(Config.screen_width/2,300) , mt10, 4000);
     },1000);
     
     setTimeout(function(){
@@ -30,6 +32,7 @@ LooseScreen.prototype.add_label = function(text, position, move_to, duration) {
 
     var label1 = new Label();
     label1.set({text: text});
+    label1.set({text_align:'center'});
     label1.set({text_color: "#FFFFFF"});
     label1.set({text_size: 140});
     label1.set({text_font_name: "AuldMagick"});
