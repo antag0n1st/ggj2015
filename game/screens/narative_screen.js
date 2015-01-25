@@ -11,6 +11,7 @@ NarativeScreen.prototype.initialize = function() {
 
 
     this.add_label("Fortelling the future", new V(400, 50), new V(), 6000);
+    ContentManager.sounds.labels_intro.volume(0.2).play();
 
     var that = this;
 
