@@ -1,12 +1,12 @@
 //(function(window,undefined){
 
-function Tent() {
-    this.initialize();
+function Tent(messages) {
+    this.initialize(messages);
 }
 
 Tent.prototype = new Animation();
 Tent.prototype.animation_initialize = Tent.prototype.initialize;
-Tent.prototype.initialize = function () {
+Tent.prototype.initialize = function (messages) {
 
     var sprite_sheet = new SpriteSheet([{
             image: Images.tent_shadows_double,
@@ -28,8 +28,10 @@ Tent.prototype.initialize = function () {
 
     var that = this;
 
+    
+
     setTimeout(function () {
-        var dialog1 = new Bubble(["Your destiny is", "to die by piano", "crashing on your", "head"], 3000, "witch_head", false);
+        var dialog1 = new Bubble(["Your destiny is", messages[0], messages[1], messages[3]], 3000, "witch_head", false);
         dialog1.set_position(-50, -240);
         that.add_child(dialog1);
         dialog1.show();

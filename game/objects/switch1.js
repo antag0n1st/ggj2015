@@ -11,11 +11,13 @@ Switch1.prototype.initialize = function (message, time_stay, person_image, is_ri
     
     this.sensor = new Sprite('transparent');
     
-    this.add_child(this.sensor);
+    
     
     this.sensor.set_size(100,100);
     this.sensor.set_position(0,0);
     this.sensor.set_anchor(0.5,0.5);
+    
+    this.is_animating = false;
     
    
 
@@ -36,6 +38,7 @@ Switch1.prototype.initialize = function (message, time_stay, person_image, is_ri
     this.handle.z_index=-1;
 
     this.add_child(this.base);
+    this.add_child(this.sensor);
     
     this.object = null;
      this.graphic = null;
@@ -55,13 +58,10 @@ Switch1.prototype.show = function () {
 
 Switch1.prototype.on_added_to_parent = function (parent) {
     Drawable.prototype.on_added_to_parent.call(this, parent);
-    this.is_state_on = false;
-
 };
 
 Switch1.prototype.on_remove_from_parent = function (parent) {
     Drawable.prototype.on_remove_from_parent.call(this, parent);
-
 };
 
 Switch1.prototype.draw = function (context) {
@@ -72,19 +72,21 @@ Switch1.prototype.clear = function (context) {
 
 };
 
-Switch1.prototype.turn_on = function (context) {
+Switch1.prototype.turn_on = function () {
     this.is_state_on = true;
+    Notes.send(Notes.NOTE_SWITCH_OBJECT,null,this);
     var t = new TweenRotateTo(this.handle,Math.degrees_to_radians(-60),null,400);
     t.run();
-    Notes.send(Notes.NOTE_SWITCH_OBJECT,null,this);
+    
 };
 
 
-Switch1.prototype.turn_off = function (context) {
+Switch1.prototype.turn_off = function () {
     this.is_state_on = false;
+    Notes.send(Notes.NOTE_SWITCH_OBJECT,null,this);
     var t = new TweenRotateTo(this.handle,Math.degrees_to_radians(60),null,400);
     t.run();
-    Notes.send(Notes.NOTE_SWITCH_OBJECT,null,this);
+    
 };
 
 //    window.Switch1 = Switch1;

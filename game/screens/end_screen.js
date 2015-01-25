@@ -9,7 +9,6 @@ EndScreen.prototype.screen_initialize = EndScreen.prototype.initialize;
 EndScreen.prototype.initialize = function() {
     this.screen_initialize();
 
-
     this.add_label("Congrats!", new V(400, 150), new V(), 4000);
 
     var that = this;
@@ -18,14 +17,9 @@ EndScreen.prototype.initialize = function() {
         var mt10 = new V();
         mt10.setLength(10);
         mt10.setAngle(Math.degrees_to_radians(-90));
-        that.add_label("You finish the game!!!",new V(600,250) , mt10, 4000);
+        that.add_label("You finished the game!!!",new V(600,250) , mt10, 4000);
     },1000);
     
-    
-//    setTimeout(function(){
-//        game.navigator.add(new GameScreen(), Screen.ANIMATION_TYPE_FADEIN);
-//    },16000);
-
 };
 
 EndScreen.prototype.show = function() {

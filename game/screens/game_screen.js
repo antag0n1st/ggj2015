@@ -157,45 +157,49 @@
                 var s = this.switches[i];
 
                 if (SAT.testPolygonPolygon(s.sensor.bounds, this.player.bounds)) {
+                    
+
+                    if (s.object instanceof OneWayPlatform) {
+
+                        var p_s = s.object.get_position();
+                        var p1 = -280;
+                        if (s.is_state_on) {
+                            p1 = 280;
+                        }
+
+                        var t = new TweenMoveTo(s.object,
+                                new V().copy(p_s.clone().add(new V(p1, 0))), null, 500);
+                        t.run();
+
+                        var t2 = new TweenMoveTo(s.graphic,
+                                new V().copy(p_s.clone().add(new V(p1, 0))), null, 500, function () {
+
+                        });
+                        t2.run();
+
+                    } else if (s.object instanceof SolidPlatform) {
+
+                        var p_s = s.object.get_position();
+                        var p1 = -400;
+                        if (s.is_state_on) {
+                            p1 = 400;
+                        }
+
+                        var t = new TweenMoveTo(s.object, new V().copy(p_s.clone().add(new V(0, p1))), null, 500);
+                        t.run();
+                    }
+                    
                     if (s.is_state_on) {
                         s.turn_off();
                     } else {
                         s.turn_on();
                     }
+
+
                 }
 
             }
 
-
-        } else if (note === Notes.NOTE_SWITCH_OBJECT) {
-            // check the sender
-
-            if (sender.object instanceof OneWayPlatform) {
-
-
-
-                var p = sender.object.get_position();
-                var p1 = 280;
-                if (sender.is_state_on) {
-                    p1 = -280;
-                }
-
-                var t = new TweenMoveTo(sender.object, p.clone().add(new V(p1, 0)), null, 500);
-                t.run();
-
-                var t2 = new TweenMoveTo(sender.graphic, p.clone().add(new V(p1, 0)), null, 500);
-                t2.run();
-
-            } else if (sender.object instanceof SolidPlatform) {
-                var p = sender.object.get_position();
-                var p1 = 400;
-                if (sender.is_state_on) {
-                    p1 = -400;
-                }
-
-                var t = new TweenMoveTo(sender.object, p.clone().add(new V(0, p1)), null, 500);
-                t.run();
-            }
 
         }
 
@@ -204,7 +208,9 @@
     GameScreen.prototype.load_next_level = function () {
 
         if (this.current_level === 2) {
-            game.navigator.add(new EndScreen(), Screen.ANIMATION_TYPE_FADEIN);
+           setTimeout(function () {
+                game.navigator.add(new EndScreen(), Screen.ANIMATION_TYPE_FADEIN);
+            }, 600);
         } else {
 
             this.current_level++;
@@ -216,7 +222,7 @@
             }, function () {
 
             });
-            
+
             ContentManager.download_resources(this.stage, function () {
 
             });
@@ -519,8 +525,16 @@
                 this.sensors.push(sensor);
 
             } else if (o.type === 'Tent') {
+                
+                var messages = ["to die by piano","crashing on your","head"];
+                        
+                if(this.current_level === 1){
+                   messages = ["to die by piano","crashing on you",""];
+                } else if(this.current_level === 2){
+                   messages = ["to die from","the rasing spikes",""];
+                }
 
-                var tent = new Tent();
+                var tent = new Tent(messages);
                 tent.set_position(o.pos.x, o.pos.y);
                 tent.play('glow');
                 layer.add_child(tent);

@@ -9,7 +9,7 @@ WinScreen.prototype.screen_initialize = WinScreen.prototype.initialize;
 WinScreen.prototype.initialize = function() {
     this.screen_initialize();
 
-    Notes.send(Notes.NOTE_LOAD_NEXT_LEVEL);
+    
 
     this.add_label("The destiny is fullfill!", new V(Config.screen_width/2, 250), new V(), 4000);
 
@@ -24,7 +24,7 @@ WinScreen.prototype.initialize = function() {
     
     
     setTimeout(function(){
-        
+        Notes.send(Notes.NOTE_LOAD_NEXT_LEVEL);
         game.navigator.go_back(Screen.ANIMATION_TYPE_FADEIN);
     },5000);
 
