@@ -28,6 +28,12 @@ Game.prototype.load_assets = function() {
     ContentManager.add_image('dwarf_head', 'assets/images/dwarf_head.png');
     ContentManager.add_image('witch_head', 'assets/images/witch_head.png');
     ContentManager.add_image('goat_head', 'assets/images/goat_head.png');
+    
+    
+    
+    
+    ContentManager.add_sound('labels_intro', 'assets/sounds/labeli_intro');
+    ContentManager.add_sound('smach', 'assets/sounds/smach');
         
     ////////////////////////////////////////////////////////////////////////
 
