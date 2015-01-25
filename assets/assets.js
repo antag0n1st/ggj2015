@@ -9,6 +9,7 @@ Game.prototype.load_assets = function() {
     ContentManager.add_image('blood', 'assets/images/blood.png');
     
     ContentManager.add_spine_animation('dwarf');
+    ContentManager.add_spine_animation('goat');
     
     ContentManager.add_file('assets/levels/level_1.json',function(data){
         ContentManager.current_level_data = data;
@@ -23,7 +24,7 @@ Game.prototype.load_assets = function() {
     ContentManager.add_image('witch_ball3', 'assets/images/ggj15_witch_BALL3.png');
     ContentManager.add_image('ggj15_witch_BALL3_broken', 'assets/images/ggj15_witch_BALL3_broken.png');
     ContentManager.add_image('ggj15_witch_intro_ball_brokenTotaly', 'assets/images/ggj15_witch_intro_ball_brokenTotaly.png');
-    ContentManager.add_image('tent_shadows_double', 'assets/images/ggj15_tent_shadows_double.png');
+    ContentManager.add_image('tent_shadows_double', 'assets/images/tent.png');
     ContentManager.add_image('dwarf_head', 'assets/images/dwarf_head.png');
     ContentManager.add_image('witch_head', 'assets/images/witch_head.png');
     ContentManager.add_image('goat_head', 'assets/images/goat_head.png');

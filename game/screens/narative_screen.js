@@ -59,7 +59,7 @@ NarativeScreen.prototype.initialize = function() {
         var mt6 = new V();
         mt6.setLength(0);
         mt6.setAngle(Math.degrees_to_radians(90));
-        that.add_label("But when the magick ball",new V(280,-10) , mt6, 4000);
+        that.add_label("When the magick ball",new V(280,-10) , mt6, 4000);
     },6000);
     
     setTimeout(function(){
@@ -128,26 +128,26 @@ NarativeScreen.prototype.initialize = function() {
         var mt10 = new V();
         mt10.setLength(0);
         mt10.setAngle(Math.degrees_to_radians(90));
-        that.add_label("It's imposible to tell the future",new V(120,30) , mt10, 4000);
+        that.add_label("It's imposible to tell the future",new V(120,150) , mt10, 4000);
     },10000);
     
     
      setTimeout(function(){
         var label1 = new Label();
-        label1.set({text: "######?"});
+        label1.set({text: "But , the show must go on !"});
         label1.set({text_color: "#FFFFFF"});
         label1.set({text_size: 140});
         label1.set({text_font_name: "AuldMagick"});
 
-        label1.set_position(240, 180);
+        label1.set_position(240, 350);
         that.add_child(label1);
         
     },13000);
     
     
-//    setTimeout(function(){
-//        game.navigator.add(new GameScreen(), Screen.ANIMATION_TYPE_FADEIN);
-//    },16000);
+    setTimeout(function(){
+        game.navigator.add(new GameScreen(), Screen.ANIMATION_TYPE_FADEIN);
+    },16000);
 
 };
 
@@ -156,18 +156,22 @@ NarativeScreen.prototype.show = function() {
 
     Screen.prototype.show.call(this);
 
-
+    game.input.add(this);
 
 };
 
 NarativeScreen.prototype.hide = function() {
     Screen.prototype.hide.call(this);
-
+    game.input.remove(this);
 };
 
 NarativeScreen.prototype.update = function() {
     Screen.prototype.update.call(this);
 
+};
+
+NarativeScreen.prototype.on_mouse_up = function(){
+    Config.go_fullscreen();
 };
 
 NarativeScreen.prototype.on_added_to_parent = function(parent) {

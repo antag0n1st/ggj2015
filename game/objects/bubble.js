@@ -16,9 +16,9 @@ Bubble.prototype.initialize = function (message, time_stay, person_image, is_rig
         if(typeof(message[i])==="undefined")
             this.message[i]=" ";
     
-    for(var i=0;i<4;i++)
-        log(this.message[i]);
-    
+//    for(var i=0;i<4;i++)
+//        log(this.message[i]);
+//    
     this.c1 = new Sprite('white_circle');
     this.c1.set_scale(0.1);
     this.c1.set_anchor(0.5,0.5);
