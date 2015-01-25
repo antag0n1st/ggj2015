@@ -25,12 +25,16 @@
 
         this.player = null;
         this.goat = null;
+        
+        this.trackable_object = null;
 
         this.import_level(ContentManager.current_level_data);
 
         Notes.add(this, Notes.NOTE_CHARACTER_IS_DEAD);
         Notes.add(this, Notes.NOTE_YOU_LOOSE);
         Notes.add(this, Notes.NOTE_YOU_WIN);
+        Notes.add(this, Notes.NOTE_GOAT_SPAWN);
+        Notes.add(this, Notes.NOTE_DIALOG_FINISHED);
 
     };
 
@@ -70,8 +74,6 @@
 
     GameScreen.prototype.handle_visibility = function () {
 
-
-
         for (var i = 0; i < this.grids.length; i++) {
             var s = this.grids[i];
             var grid = s.grid;
@@ -105,15 +107,18 @@
             sender.emitter.stop();
             sender.remove_from_parent();
             sender.is_dead = true;
-        }
-      
-        if (note === Notes.NOTE_YOU_LOOSE) {            
+        } else if (note === Notes.NOTE_YOU_LOOSE) {            
             sender.remove_from_parent();
             
             setTimeout(function(){
                 game.navigator.add(new LooseScreen(), Screen.ANIMATION_TYPE_FADEIN);
-            },2000);
+            },600);
             
+        } else if (note === Notes.NOTE_GOAT_SPAWN) {
+            var forground = this.get_layer_by_name("playground");
+            forground.add_child(this.goat);
+        } else if (note === Notes.NOTE_DIALOG_FINISHED) {
+          this.trackable_object = this.player;
         }
         
     };
@@ -371,11 +376,10 @@
 
                 var forground = this.get_layer_by_name("playground");
 
-
                 this.goat = new Goat();
                 this.goat.set_position(o.pos.x, o.pos.y);
                 this.goat.z_index = 3;
-                forground.add_child(this.goat);
+               // forground.add_child(this.goat);
 
                 this.goat.platforms = this.platforms;
                 this.goat.objects = this.objects;
@@ -398,6 +402,15 @@
                 layer.add_child(sensor);
                 this.sensors.push(sensor);
                 
+            } else if (o.type === 'Tent') {
+               
+                var tent = new Tent();
+                tent.set_position(o.pos.x, o.pos.y);
+                tent.play('glow');
+                layer.add_child(tent);
+                this.trackable_object = tent;
+                this.track(this.trackable_object,true);
+                
             }
 
         }
@@ -406,7 +419,9 @@
 
     };
 
-    GameScreen.prototype.track = function (object) {
+    GameScreen.prototype.track = function (object,immidiate) {
+        
+        if(!object){ return; }
 
         var target_pos = object.bounds.pos;
 
@@ -418,6 +433,8 @@
 
         var angle = Math.get_angle(center_camera, target_pos);
         var distance = Math.get_distance(center_camera, target_pos);
+        
+        distance = (distance > 10 && !immidiate) ? Ticker.step  : distance;
 
         var v = new Vector();
         v.setLength(distance);
@@ -455,9 +472,6 @@
             return;
         }
 
-
-
-
         for (var j = 0; j < this.objects.length; j++) {
 
             var o = this.objects[j];
@@ -471,7 +485,7 @@
             }
         }
 
-        this.track(this.player);
+        this.track(this.trackable_object);
 
         this.handle_visibility();
     };

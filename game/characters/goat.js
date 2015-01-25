@@ -4,11 +4,11 @@ function Goat() {
     this.initialize();
 }
 
-Goat.prototype = new Sprite();
-Goat.prototype.sprite_initialize = Goat.prototype.initialize;
+Goat.prototype = new SpineAnimation();
+Goat.prototype.spine_initialize = Goat.prototype.initialize;
 Goat.prototype.initialize = function () {
 
-    this.sprite_initialize(''); // your image name
+    this.spine_initialize('goat'); // your image name
     this.set_anchor(0.5, 1);
     this.set_size(50, 80);
 
@@ -35,7 +35,7 @@ Goat.prototype.initialize = function () {
     this.slope_id = 0;
     this.float_id = 0;
 
-    this.run_speed = 200 / 1000;//px/s
+    this.run_speed = 150 / 1000;//px/s
     this.jump_speed = 730 / 1000; // 830 / 1000; //px/s
     this.jump_boost = 0.5 / 1000;
 
@@ -62,6 +62,8 @@ Goat.prototype.initialize = function () {
     this.number_of_lifes = 1;
     this.has_double_value = false; // if the coins collected have double value
     this.is_invincible = false; // is in transition mode after losing a life
+    
+    this.play('run');
 
 };
 
@@ -77,18 +79,11 @@ Goat.prototype.on_remove_from_parent = function (parent) {
       Notes.remove(this.states, Notes.NOTE_SIDE_FLIPPED);
 };
 
-Goat.prototype.draw = function (context) {
-    Sprite.prototype.draw.call(this, context);
 
-    var pos = this.bounds.pos;
-    var fill = context.fillStyle;
-    context.fillStyle = "red";
-    var ach = this.get_anchor();
-    context.fillRect(pos.x + (-this.width * ach.x), pos.y + (-this.height * ach.y), this.width, this.height);
-    context.fillStyle = fill;
-};
 
 Goat.prototype.update = function (dt) {
+    
+    SpineAnimation.prototype.update.call(this,dt);
 
     if (this.is_dead) {
 //        log('is dead');
@@ -322,8 +317,6 @@ Goat.prototype.update = function (dt) {
 
 };
 
-Goat.prototype.play = function () {
-};
 
 Goat.prototype.on_note = function (note, data, sender) {
     // if (note === Notes.NOTE_NAME) {}
