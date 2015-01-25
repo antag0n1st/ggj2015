@@ -11,7 +11,6 @@ NarativeScreen.prototype.initialize = function() {
 
 
     this.add_label("Fortelling the future", new V(400, 50), new V(), 6000);
-    ContentManager.sounds.labels_intro.volume(0.2).play();
 
     var that = this;
 
@@ -20,7 +19,7 @@ NarativeScreen.prototype.initialize = function() {
         var mt1 = new V();
         mt1.setLength(100);
         mt1.setAngle(Math.degrees_to_radians(10));
-        that.add_sprite("witch_intro", new V(410, 130), mt1, 0.6, 0, 5000);
+        that.add_sprite("witch_intro", new V(380, 130), mt1, 0.6, 0, 5000);
     }, 1000);
 
 
@@ -28,7 +27,7 @@ NarativeScreen.prototype.initialize = function() {
         var mt3 = new V();
         mt3.setLength(100);
         mt3.setAngle(Math.degrees_to_radians(10));
-        that.add_rotating_sprite("witch_ball1", new V(660, 430), mt3, 0.6, 0, 0.5, new V(0.5, 0.5), 5000);
+        that.add_rotating_sprite("witch_ball1", new V(630, 430), mt3, 0.6, 0, 0.5, new V(0.5, 0.5), 5000);
     }, 1000);
 
 
@@ -36,7 +35,7 @@ NarativeScreen.prototype.initialize = function() {
         var mt4 = new V();
         mt4.setLength(100);
         mt4.setAngle(Math.degrees_to_radians(10));
-        that.add_rotating_sprite("witch_ball2", new V(660, 430), mt4, 0.6, 0, -0.5, new V(0.5, 0.5), 5000);
+        that.add_rotating_sprite("witch_ball2", new V(630, 430), mt4, 0.6, 0, -0.5, new V(0.5, 0.5), 5000);
     }, 1000);
 
 
@@ -44,7 +43,7 @@ NarativeScreen.prototype.initialize = function() {
         var mt5 = new V();
         mt5.setLength(100);
         mt5.setAngle(Math.degrees_to_radians(10));
-        that.add_rotating_sprite("witch_ball3", new V(660, 430), mt5, 0.6, 0, null, new V(0.5, 0.5), 5000);
+        that.add_rotating_sprite("witch_ball3", new V(630, 430), mt5, 0.6, 0, null, new V(0.5, 0.5), 5000);
     }, 1000);
   
     
@@ -52,7 +51,7 @@ NarativeScreen.prototype.initialize = function() {
         var mt2 = new V();
         mt2.setLength(100);
         mt2.setAngle(Math.degrees_to_radians(10));
-        that.add_sprite("witch_intro_hands", new V(567, 350), mt2, 0.6, 0, 5000);
+        that.add_sprite("witch_intro_hands", new V(537, 350), mt2, 0.6, 0, 5000);
     }, 1000);
 
     //scene 2
@@ -75,14 +74,14 @@ NarativeScreen.prototype.initialize = function() {
         var mt8 = new V();
         mt8.setLength(100);
         mt8.setAngle(Math.degrees_to_radians(190));
-        that.add_sprite("witch_intro_luta",new V(610,150) , mt8, 0.6, 0, 3500);
+        that.add_sprite("witch_intro_luta",new V(210,150) , mt8, 0.6, 0, 3500);
     },6700);
     
     setTimeout(function(){
         var mt9 = new V();
         mt9.setLength(100);
         mt9.setAngle(Math.degrees_to_radians(190));
-        that.add_sprite("witch_intro_hands_luta",new V(780,350) , mt9, 0.6, 0, 3500);
+        that.add_sprite("witch_intro_hands_luta",new V(380,350) , mt9, 0.6, 0, 3500);
     },6700);
     
     
@@ -90,7 +89,7 @@ NarativeScreen.prototype.initialize = function() {
         var mt33 = new V();
         mt33.setLength(70);
         mt33.setAngle(Math.degrees_to_radians(190));
-        that.add_rotating_sprite("witch_ball1", new V(860, 430), mt33, 0.6, 0, 0.5, new V(0.5, 0.5), 2500);
+        that.add_rotating_sprite("witch_ball1", new V(460, 430), mt33, 0.6, 0, 0.5, new V(0.5, 0.5), 2500);
     }, 6700);
 
 
@@ -98,7 +97,7 @@ NarativeScreen.prototype.initialize = function() {
         var mt44 = new V();
         mt44.setLength(70);
         mt44.setAngle(Math.degrees_to_radians(190));
-        that.add_rotating_sprite("witch_ball2", new V(860, 430), mt44, 0.6, 0, -0.5, new V(0.5, 0.5), 2500);
+        that.add_rotating_sprite("witch_ball2", new V(460, 430), mt44, 0.6, 0, -0.5, new V(0.5, 0.5), 2500);
     }, 6700);
 
 
@@ -106,7 +105,7 @@ NarativeScreen.prototype.initialize = function() {
         var mt55 = new V();
         mt55.setLength(70);
         mt55.setAngle(Math.degrees_to_radians(190));
-        that.add_rotating_sprite("ggj15_witch_BALL3_broken", new V(860, 430), mt55, 0.6, 0, null, new V(0.5, 0.5), 2500);
+        that.add_rotating_sprite("ggj15_witch_BALL3_broken", new V(460, 430), mt55, 0.6, 0, null, new V(0.5, 0.5), 2500);
     }, 6700);
     
     
@@ -116,10 +115,10 @@ NarativeScreen.prototype.initialize = function() {
 
         image.set_alpha(1);
 
-        image.set_position(750, 360);
+        image.set_position(350, 360);
         that.add_child(image);
         
-        var t3 = new TweenMoveTo(image, new V(700, 350), null, 1500, function(){that.remove_child(image);});
+        var t3 = new TweenMoveTo(image, new V(300, 350), null, 1500, function(){that.remove_child(image);});
         t3.run();
     },8400);
 
@@ -142,7 +141,6 @@ NarativeScreen.prototype.initialize = function() {
 
         label1.set_position(240, 350);
         that.add_child(label1);
-        
     },13000);
     
     

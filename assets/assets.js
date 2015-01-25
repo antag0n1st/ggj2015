@@ -32,7 +32,8 @@ Game.prototype.load_assets = function() {
     
     
     
-    ContentManager.add_sound('labels_intro', 'assets/sounds/labeli_intro.mp3');
+    ContentManager.add_sound('labels_intro', 'assets/sounds/labeli_intro');
+    ContentManager.add_sound('smach', 'assets/sounds/smach');
         
     ////////////////////////////////////////////////////////////////////////
 
