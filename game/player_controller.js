@@ -160,6 +160,11 @@
         
         this.is_space = false;
     };
+    
+    PlayerController.prototype.destroy = function(){
+        this.kibo.up('space',null);
+        this.kibo.down('space',null);
+    };
 
     window.PlayerController = PlayerController;
 

@@ -127,6 +127,9 @@
             sender.remove_from_parent();
 
             if (sender === this.player) {
+                if (this.player) {
+                    this.player.controller.destroy();
+                }
                 this.player = null;
             } else if (sender === this.goat) {
                 this.goat = null;
@@ -152,12 +155,12 @@
         } else if (note === Notes.NOTE_CHECK_SWITCH) {
 
             Notes.send(Notes.NOTE_DIALOG_FINISHED);
-
+          
             for (var i = 0; i < this.switches.length; i++) {
                 var s = this.switches[i];
 
                 if (SAT.testPolygonPolygon(s.sensor.bounds, this.player.bounds)) {
-                    
+
 
                     if (s.object instanceof OneWayPlatform) {
 
@@ -188,7 +191,7 @@
                         var t = new TweenMoveTo(s.object, new V().copy(p_s.clone().add(new V(0, p1))), null, 500);
                         t.run();
                     }
-                    
+
                     if (s.is_state_on) {
                         s.turn_off();
                     } else {
@@ -208,7 +211,7 @@
     GameScreen.prototype.load_next_level = function () {
 
         if (this.current_level === 2) {
-           setTimeout(function () {
+            setTimeout(function () {
                 game.navigator.add(new EndScreen(), Screen.ANIMATION_TYPE_FADEIN);
             }, 600);
         } else {
@@ -525,13 +528,13 @@
                 this.sensors.push(sensor);
 
             } else if (o.type === 'Tent') {
-                
-                var messages = ["to die by piano","crashing on your","head"];
-                        
-                if(this.current_level === 1){
-                   messages = ["to die by piano","crashing on you",""];
-                } else if(this.current_level === 2){
-                   messages = ["to die from","the rasing spikes",""];
+
+                var messages = ["to die by piano", "crashing on your", "head"];
+
+                if (this.current_level === 1) {
+                    messages = ["to die by piano", "crashing on you", ""];
+                } else if (this.current_level === 2) {
+                    messages = ["to die from", "the rasing spikes", ""];
                 }
 
                 var tent = new Tent(messages);
@@ -671,6 +674,9 @@
 
         this.grids = [];
 
+        if (this.player) {
+            this.player.controller.destroy();
+        }
         this.player = null;
         this.goat = null;
         this.trackable_object = null;
